@@ -1,57 +1,66 @@
 {
   "basics": {
-    "name": "Molly Maluhia",
+    "name": "Raj Pratap Singh Gurjar",
     "label": "Student",
-    "picture": "https://techfolios.github.io/template/images/molly.png",
-    "email": "molly@hawaii.edu",
-    "phone": "808-333-4444",
-    "website": "https://mmaluhia.github.io",
-    "summary": "I am studying for a B.S. in Computer Science in the Department of Information and Computer Sciences at the University of Hawaii. I expect to graduate in Spring, 2020.",
+    "picture": "https://rajpragur.github.io/portfolio/images/profilepfp.jpg",
+    "email": "rajpragur@gmail.com",
+    "phone": "+91 9340592875",
+    "website": "https://rajpragur.github.io/portfolio",
+    "summary": "I am a B.Tech student in Mathematics and Computing at the Department of Mathematics, IIT Patna, with an expected graduation in Spring 2028. \n\tWith a strong foundation in mathematics and algorithmic problem-solving alongwith strong grasp of core computer science concepts, including Operating Systems, Database Management Systems (DBMS), and Object-Oriented Programming (OOP), I am particularly interested in quantitative finance, algorithmic trading, competitive programming, and machine learning—especially in natural language processing (NLP). \nMy experience includes research consultancy at WorldQuant, where I develop quantitative trading strategies, and leading fAInance.pro and Trippr (self projects). I have a solid background in competitive programming. \n\tAcademically, I have excelled in mathematical competitions such as IOQM (Top 0.8%) and AIME, alongside achieving a 99.7 percentile in JEE Mains. My technical skills include Python, C++, Machine Learning frameworks (TensorFlow, Scikit-Learn), and financial modeling including.\n\tI am always eager to expand my knowledge and explore deeper into research, particularly in machine learning. I find the field fascinating and constantly seek opportunities to understand its intricacies, contribute meaningfully, and push my own boundaries in solving complex real-world problems.",
     "location": {
-      "address": "",
-      "postalCode": "96822",
-      "city": "Honolulu",
-      "countryCode": "USA",
-      "region": "Hawaii"
+      "address": "IIT Patna",
+      "postalCode": "801106",
+      "city": "Patna",
+      "countryCode": "India",
     },
     "profiles": [
       {
         "network": "github",
-        "username": "mmaluhia",
-        "url": "http://github.com/changeme"
+        "username": "rajpragur",
+        "url": "http://github.com/rajpragur"
       },
       {
         "network": "linkedin",
-        "username": "mollymaluhia",
-        "url": "http://linkedin.com/in/changeme"
+        "username": "rajpragur",
+        "url": "http://linkedin.com/in/rajpragur"
       },
       {
         "network": "twitter",
-        "username": "mollymal",
-        "url": "http://twitter.com/changeme"
+        "username": "rajpragur",
+        "url": "http://x.com/rajpragur"
       },
-      {
-        "network": "instagram",
-        "username": "molly",
-        "url": "http://instagram.com/changeme"
+       {
+        "network": "codeforces",
+        "username": "yapper",
+        "url": "https://codeforces.com/profile/Yapper"
       }
     ]
   },
   "interests": [
     {
-      "name": "internet of things",
+      "name": "algorithmic trading",
       "keywords": [
-        "Arduino",
-        "TI MSP430"
+        "Quant",
+        "HFT",
+        "finance"
       ]
     },
     {
-      "name": "data mining",
+      "name": "competitive programming",
       "keywords": [
+        "codeforces",
+        "cp"
       ]
     },
     {
       "name": "artificial intelligence",
+      "keywords": [
+        "Machine Learning",
+        "Neural Networks"
+      ]
+    },
+    {
+      "name": "system design",
       "keywords": [
       ]
     }
@@ -63,10 +72,8 @@
       "keywords": [
         "C",
         "C++",
-        "Java",
-        "Javascript",
-        "Assembly",
-        "Common Lisp"
+        "xv6",
+        "Python"
       ]
     },
     {
@@ -76,88 +83,82 @@
         "MacOS",
         "Ubuntu",
         "Git/GitHub",
-        "g++",
-        "TI LaunchPad"
+        "g++"
       ]
     }
   ],
   "education": [
     {
-      "institution": "University of Hawaii, Honolulu, HI",
-      "area": "Computer Science (expected Spring, 2018)",
-      "studyType": "B.S.",
-      "startDate": "2013-09-01",
+      "institution": "Indian Institute of Technology, Patna",
+      "area": "Mathematics and Computing (expected Spring, 2028)",
+      "studyType": "B.Tech",
+      "startDate": "2024-07-24",
       "endDate": "Present",
-      "gpa": "",
+      "cgpa": "8.34",
       "courses": [
+        "Data Structures and Algorithms",
+        "Foundations of Programming",
+        "Calculus and Linear Algebra",
+        "Probability Theory and Ordinary Differential Equations"
       ]
     }
   ],
   "work": [
     {
-      "company": "UH Manoa Board of Publications",
-      "position": "Web Developer",
-      "website": "",
-      "startDate": "2015-08-01",
+      "company": "WorldQuant LLC",
+      "position": "Research Consultant",
+      "website": "https://www.worldquant.com/",
+      "startDate": "2024-02-02",
       "endDate": "Present",
-      "summary": "Head of online presence for Ka Leo",
+      "summary": "Research Consultants are creating alphas in a simulated environment to predict financial markets with low turnover and high returns.",
       "highlights": [
-        "Maintain, update, and oversee official college newspaper website",
-        "Drive, design and build student-community projects for UH Manoa"
+        "Created 10+ Alphas predicting markets in US Top 3000 stocks",
+        "Implemented Super Alphas with 2+ Fitness ratio alongwith 3 Good alphas with 1.5+ Fitness ratio"
       ]
     },
     {
-      "company": "UH Information Technology Services",
-      "position": "Help Desk Consultant",
-      "website": "http://www.hawaii.edu/its/",
-      "startDate": "2015-01-01",
-      "endDate": "2016-03-15",
-      "summary": "",
+      "company": "Schoolhouse.World",
+      "position": "Mathematics and CS teacher",
+      "website": "https://schoolhouse.world/",
+      "startDate": "2023-12-01",
+      "endDate": "2024-02-01",
+      "summary": "Schoolhouse.world platform is created for High school students from all around the globe to learn free of cost, and volunteers coming from all around the globe teaching them free of cost too.",
       "highlights": [
-        "Troubleshoot software, hardware and networking issues over the phone",
-        "Answer phone and email responses to the ITS Help Desk"
+        "Created the only Competitive programming course on the platform teaching students basics of CP ie :- sorting, greedy algorithms and time complexity to analyse algorithms.",
+        "Received Certifications and tutoring authorizations in 10+ courses and having helpful ratings of 90%+"
       ]
     }
   ],
   "volunteer": [
     {
-      "organization": "Center for Renewable Energy and Island Sustainability",
-      "website": "http://manoa.hawaii.edu/reis",
-      "position": "Software Developer",
-      "startDate": "2016-01-01",
+      "organization": "National Service Scheme (NSS)",
+      "website": "https://nss.iitp.ac.in/",
+      "position": "Volunteer",
+      "startDate": "2024-07-24",
       "endDate": "Present",
-      "summary": "Lead developer for weather sensing project",
+      "summary": "Volunteering for many causes",
       "highlights": [
-        "Design firmware for distributed weather sensor network",
-        "Maintain custom data collection and storage infrastructure"
-      ]
-    },
-    {
-      "organization": "",
-      "website": "",
-      "position": "Professional organization involvement",
-      "startDate": "",
-      "endDate": "",
-      "summary": "",
-      "highlights": [
-        "Chair, ACM Manoa, 2016-Present",
-        "Member, IEEE Student Branch, 2014-Present",
-        "Webmaster/IT Officer, IEEE Student Branch, UH Manoa, 2012-2013"
       ]
     }
   ],
   "awards": [
     {
-      "title": "B+ Scholarship",
-      "date": "2013-Present",
-      "awarder": "State of Hawaii",
-      "summary": "Scholarships awarded to incoming freshmen and continuing students who complete a rigorous high school curriculum with a minimum overall GPA of 3.0 at a Hawai'i public school."
+      "title": "IOQM Merit Certifee",
+      "date": "2022",
+      "awarder": "Mathematics Teacher's Association India",
+      "summary": "Top 2000/250K candidates approximately. I qualifed for a merit holder position."
     },
     {
-      "title": "First place",
-      "date": "2015",
-      "awarder": "University of Hawaii Micromouse Competition",
-      "summary": "My team won first place in 2015.  See my portfolio site for more details."
+      "title": "NSEP Top 10%",
+      "date": "2023",
+      "awarder": "Indian Association Of Physics Teachers (IAPT)",
+      "summary": "Ranked in Top 10% scorers in Physics Olympiad in the year 2023."
+    },
+    {
+      "title": "AIME Qualifier",
+      "date": "2024",
+      "awarder": "Mathematical Association Of America",
+      "summary": "Top 3000 out of 90000 and Country Rank 32 with School Rank 1 in AMC12 Competition."
     }
   ],
   "references": [
