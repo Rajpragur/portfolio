@@ -41,8 +41,3 @@ This project implements **real-time object detection** using the **YOLOv5 model*
 - Deploy as a **web app using Flask/Streamlit**.
 - Experiment with **YOLOv8 for better accuracy**.
 
-## GitHub Repository
-[🔗 Project Code](https://github.com/rajpragur/object-detection-ai)
-
-## Screenshots
-![Object Detection Demo](../img/object_detection_demo.png)
