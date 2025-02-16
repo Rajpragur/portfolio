@@ -1,7 +1,7 @@
 ---
 layout: project
 type: project
-image: images/behavioural_logo_logo.jpg
+image: images/video_logo_logo.jpg
 title: "Object Detection for Video AI"
 date: 2025-02-16
 published: false
