@@ -38,29 +38,54 @@
   },
   "interests": [
     {
-      "name": "algorithmic trading",
+      "name": "Machine Learning & AI for Decision-Making",
       "keywords": [
-        "Quant",
-        "HFT",
-        "finance"
       ]
     },
     {
-      "name": "competitive programming",
+      "name": "Probabilistic Graphical Models & Bayesian Networks",
       "keywords": [
-        "codeforces",
-        "cp"
       ]
     },
     {
-      "name": "artificial intelligence",
+      "name": "Computer Vision & Video AI",
+      "keywords": [
+      ]
+    },
+    {
+      "name": "Human-AI Interaction & Behavioral Prediction",
+      "keywords": [
+      ]
+    },
+    {
+      "name": "Reinforcement Learning & Sequential Decision Processes",
+      "keywords": [
+      ]
+    },
+    {
+      "name": "Generative AI & Computational Creativity",
+      "keywords": [
+      ]
+    },
+    {
+      "name": "Reinforcement Learning & Sequential Decision Processesn",
+      "keywords": [
+      ]
+    },
+    {
+      "name": "AI for Scientific Discovery & Real-World Applications",
+      "keywords": [
+      ]
+    },
+    {
+      "name": "Artificial Intelligence",
       "keywords": [
         "Machine Learning",
         "Neural Networks"
       ]
     },
     {
-      "name": "system design",
+      "name": "System Design",
       "keywords": [
       ]
     }
@@ -74,6 +99,7 @@
         "C++",
         "xv6",
         "Python"
+        
       ]
     },
     {
