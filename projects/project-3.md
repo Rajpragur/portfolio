@@ -42,8 +42,3 @@ This project implements an **AI-driven human activity recognition system** using
 - Implement **gesture-based AI interactions** for robotics.  
 - Train on **custom datasets** for real-world applications.  
 
-## GitHub Repository
-[🔗 Project Code](https://github.com/rajpragur/behavior-prediction-ai)
-
-## Screenshots
-![Behavior Prediction AI](../img/behavior_prediction_demo.png)
