@@ -1,7 +1,7 @@
 ---
 layout: project
 type: project
-image: img/behavioural_logo.jpg
+image: images/behavioural_logo.jpg
 title: "AI for Behavioral Prediction"
 date: 2025-02-16
 published: true
