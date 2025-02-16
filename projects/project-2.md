@@ -4,7 +4,7 @@ type: project
 image: images/bayesian_logo.png
 title: "Bayesian Network for Decision-Making AI"
 date: 2025-02-16
-published: false
+published: true
 labels:
   - Machine Learning
   - Bayesian Networks
