@@ -9745,6 +9745,10 @@ i.icon.twitter.square:before {
   content: "\f081";
 }
 
+i.icon.codeforces.square:before {
+  content: url('/images/icons8-codeforces.-programming-competitions-and-contests,-programming-community.-96.png');
+}
+
 i.icon.facebook.square:before {
   content: "\f082";
 }
@@ -9787,6 +9791,10 @@ i.icon.google.plus:before {
 
 i.icon.linkedin:before {
   content: "\f0e1";
+}
+
+i.icon.codeforces:before {
+  content: url('/images/icons8-codeforces.-programming-competitions-and-contests,-programming-community.-96.png');
 }
 
 i.icon.github.alternate:before {
