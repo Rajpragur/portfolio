@@ -1236,6 +1236,26 @@ input::selection {
   text-shadow: none;
 }
 
+/* Codeforces */
+
+.ui.codeforces.button {
+  background-color: #1F88BE;
+  color: #FFFFFF;
+  text-shadow: none;
+}
+
+.ui.codeforces.button:hover {
+  background-color: #147baf;
+  color: #FFFFFF;
+  text-shadow: none;
+}
+
+.ui.codeforces.button:active {
+  background-color: #186992;
+  color: #FFFFFF;
+  text-shadow: none;
+}
+
 /* YouTube */
 
 .ui.youtube.button {
