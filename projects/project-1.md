@@ -4,7 +4,7 @@ type: project
 image: images/video_logo_logo.jpg
 title: "Object Detection for Video AI"
 date: 2025-02-16
-published: false
+published: true
 labels:
   - Computer Vision
   - Deep Learning
