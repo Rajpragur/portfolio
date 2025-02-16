@@ -1,7 +1,7 @@
 ---
 layout: project
 type: project
-image: img/bayesian_network.png
+image: images/bayesian_logo.png
 title: "Bayesian Network for Decision-Making AI"
 date: 2025-02-16
 published: true
