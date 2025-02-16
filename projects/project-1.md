@@ -1,10 +1,10 @@
 ---
 layout: project
 type: project
-image: img/video_logo_logo.jpg
+image: images/behavioural_logo_logo.jpg
 title: "Object Detection for Video AI"
 date: 2025-02-16
-published: true
+published: false
 labels:
   - Computer Vision
   - Deep Learning
