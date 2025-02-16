@@ -1,7 +1,7 @@
 ---
 layout: project
 type: project
-image: img/object_detection.png
+image: https://miro.medium.com/v2/resize:fit:1400/format:webp/1*X6Erayfu3_A_eCFCzX2ZGg.png
 title: "Object Detection for Video AI"
 date: 2025-02-16
 published: true
