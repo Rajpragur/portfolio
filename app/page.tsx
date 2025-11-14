@@ -168,7 +168,7 @@ export default function Portfolio() {
 
               <motion.div className="space-y-6" variants={fadeIn}>
                 <p className="text-md leading-relaxed text-muted-foreground">
-                  I love building things that live on the internet. Not limited to some specific stack, I'm always looking to learn new things. I am passionate and open to new opportunities.
+                  I love building things that live on the internet. Not limited to some specific stack, I&apos;m always looking to learn new things. I am passionate and open to new opportunities.
                 </p>
                 
                 {/* Availability Badge */}
