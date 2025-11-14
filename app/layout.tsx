@@ -2,14 +2,24 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ 
+  subsets: ['latin'],
+  display: 'swap', // Faster font loading
+  preload: true,
+})
 
 export const metadata: Metadata = {
-  title: 'Abhishumat Singh Beniwal',
-  description: 'My developer portfolio',
-  // You can also add the favicon metadata here
+  title: 'Raj Pratap Singh Gurjar - Full Stack Developer',
+  description: 'Full Stack Developer from IIT Patna. Passionate about AI/ML, Web Development, and Problem Solving. Building innovative solutions with React, Next.js, and Python.',
+  keywords: ['Full Stack Developer', 'IIT Patna', 'Web Development', 'AI/ML', 'React', 'Next.js', 'Python'],
+  authors: [{ name: 'Raj Pratap Singh Gurjar' }],
   icons: {
-    icon: '/photo.png',  // Path to your favicon file in the public directory
+    icon: '/assets/photo.jpeg',
+  },
+  openGraph: {
+    title: 'Raj Pratap Singh Gurjar - Full Stack Developer',
+    description: 'Full Stack Developer from IIT Patna',
+    type: 'website',
   },
 }
 
@@ -21,8 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* This will link to the favicon */}
-        <link rel="icon" href="/photo.png" />
+        <link rel="icon" href="/assets/photo.jpeg" />
       </head>
       <body className={inter.className}>{children}</body>
     </html>

@@ -1,20 +1,19 @@
 "use client"
-
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { InstagramIcon, Github, Linkedin, Sun, Moon, ExternalLink, Star, Users } from "lucide-react"
+import { InstagramIcon, Github, Linkedin, MailIcon, Sun, Moon, ExternalLink, Lightbulb } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion"
 import PreLoader from "@/components/preloader"
 
-// Animation variants
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.5 },
 }
-
 const staggerContainer = {
   animate: {
     transition: {
@@ -22,7 +21,6 @@ const staggerContainer = {
     },
   },
 }
-
 const shimmer = {
   animate: {
     background: [
@@ -42,8 +40,6 @@ export default function Portfolio() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [selectedCategory, setSelectedCategory] = useState("all")
   const [isLoading, setIsLoading] = useState(true)
-
-  // Scroll progress animation
   const { scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -51,17 +47,19 @@ export default function Portfolio() {
     restDelta: 0.001,
   })
 
-  // Mouse follower effect
   useEffect(() => {
+    let raf = 0
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
+      cancelAnimationFrame(raf)
+      raf = requestAnimationFrame(() => setMousePosition({ x: e.clientX, y: e.clientY }))
     }
     window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove)
+      cancelAnimationFrame(raf)
+    }
   }, [])
 
-
-  // Theme toggle
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") || "light"
     setTheme(savedTheme)
@@ -75,43 +73,59 @@ export default function Portfolio() {
     document.documentElement.classList.toggle("dark", newTheme === "dark")
   }
 
-  // Project categories
-  const categories = ["All", "Hide"]
   const projects = [
     {
-      image: "/assets/project2.png",
-      title: "HackOff V4.0",
-      description: "A hackathon event platform for registration, submissions, and participant management.",
-      link: "https://hackoff-v4-pi.vercel.app/",
-      category: "All",
-      stats: { stars: 45, users: 200 },
-    },
-    {
-      image: "/assets/project3.png",
-      title: "DigiSwasth",
-      description: "A virtual hospital platform for patient-doctor interaction and health management.",
-      link: "https://digiswasth-xi.vercel.app/",
-      category: "All",
-      stats: { stars: 12, users: 80 },
-    },
-    {
+      title: "Patient Pathway",
+      link: "https://nurtureme.ai",
       image: "/assets/project1.png",
-      title: "Sociovate",
-      description: "A platform for ideathon participation, idea submission, and team collaboration.",
-      link: "https://sociovate-frontend.vercel.app/",
-      category: "All",
-      stats: { stars: 60, users: 100 },
+      category: "Health",
+      description:
+        "Doctor portal & patient-facing flows for automated assessments, quiz-based symptom tracking, and clinician dashboards.",
+      stats: { stars: 420, users: "1.2k" },
+    },
+    {
+      title: "CharchaGram",
+      link: "https://charcha-manch.vercel.app/",
+      image: "/assets/project2.png",
+      category: "Web",
+      description:
+        "Civic discussion forum with gamification, constituency dashboards, and AI moderation/summaries.",
+      stats: { stars: 210, users: "800" },
+    },
+    {
+      title: "Trippr — AI Itinerary Generator",
+      link: "https://trippr-app.netlify.app/",
+      image: "/assets/project3.png",
+      category: "AI",
+      description:
+        "AI-powered travel planner that generates optimized itineraries using LLMs + live place data.",
+      stats: { stars: 154, users: "950" },
     },
   ]
+
+  const categories = ["all", ...Array.from(new Set(projects.map((p) => p.category)))]
 
   const filteredProjects =
     selectedCategory === "all" ? projects : projects.filter((project) => project.category === selectedCategory)
 
+  const techs = [
+    { src: "/assets/python.svg", alt: "Python", level: 80 },
+    { src: "/assets/cpp.svg", alt: "C++", level: 80 },
+    { src: "/assets/js-squared.svg", alt: "JavaScript", level: 90 },
+    { src: "/assets/typescript.svg", alt: "TypeScript", level: 85 },
+    { src: "/assets/react.svg", alt: "React", level: 90 },
+    { src: "/assets/flask.svg", alt: "Flask", level: 70 },
+    { src: "/assets/Express.svg", alt: "Express.js", level: 75 },
+    { src: "/assets/tensorflow.svg", alt: "TensorFlow", level: 65 },
+    { src: "/assets/sklearn.svg", alt: "scikit-learn", level: 68 },
+    { src: "/assets/git.svg", alt: "Git", level: 88 },
+    { src: "/assets/supabase.svg", alt: "Supabase", level: 80 },
+    { src: "/assets/docker.svg", alt: "Docker", level: 78 },
+  ]
+
   return (
     <>
-      <AnimatePresence mode="wait">
-        {isLoading && <PreLoader onLoadingComplete={() => setIsLoading(false)} />}
-      </AnimatePresence>
+      <AnimatePresence mode="wait">{isLoading && <PreLoader onLoadingComplete={() => setIsLoading(false)} />}</AnimatePresence>
 
       <motion.div
         className="min-h-screen bg-background text-foreground relative"
@@ -121,164 +135,225 @@ export default function Portfolio() {
       >
         {/* Mouse follower */}
         <motion.div
-          className="fixed w-6 h-6 rounded-full bg-primary/20 pointer-events-none z-50 hidden md:block"
+          className="fixed w-6 h-6 rounded-full bg-primary/15 pointer-events-none z-50 hidden md:block"
           animate={{
             x: mousePosition.x - 12,
             y: mousePosition.y - 12,
             scale: 1,
           }}
-          transition={{ type: "spring", damping: 30, stiffness: 200 }}
+          transition={{ type: "spring", damping: 20, stiffness: 300 }}
         />
-
-        {/* Scroll progress bar */}
         <motion.div className="fixed top-0 left-0 right-0 h-1 bg-primary z-50" style={{ scaleX }} />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          
-
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-12">
-            {/* Left Sidebar */}
             <motion.div className="space-y-10" initial="initial" animate="animate" variants={staggerContainer}>
-              {/* Profile Header */}
               <motion.div className="flex items-center gap-6" variants={fadeIn}>
                 <div className="relative">
                   <Image
-                    src="/favicon.ico"
+                    src="/assets/photo.jpeg"
                     alt="Profile"
                     width={90}
                     height={90}
-                    className="rounded-full ring-2 ring-primary/0"
+                    className="rounded-lg ring-2 ring-primary/0"
+                    priority
                   />
                   <motion.div className="absolute inset-0 rounded-full" variants={shimmer} animate="animate" />
                 </div>
                 <div>
-                  <h1 className="text-3xl font-bold tracking-tight">Abhishumat Singh Beniwal</h1>
-                  <p className="text-lg text-muted-foreground">Software Engineer</p>
+                  <h1 className="text-3xl font-bold tracking-tight">Raj Pratap Singh Gurjar</h1>
+                  <p className="text-lg text-muted-foreground">Developer</p>
                 </div>
               </motion.div>
 
-              {/* Bio */}
               <motion.div className="space-y-6" variants={fadeIn}>
-                <p className="text-lg leading-relaxed text-muted-foreground">
-                  Passionate about creating innovative solutions and user-friendly applications. With expertise in web
-                  technologies and a keen eye for design, I bring ideas to life in the ever-evolving world of software
-                  development.
+                <p className="text-md leading-relaxed text-muted-foreground">
+                  I love building things that live on the internet. Not limited to some specific stack, I'm always looking to learn new things. I am passionate and open to new opportunities.
                 </p>
-                <Button
-                  className="rounded-full text-base px-8 py-6 bg-primary hover:bg-primary/90 transition-colors"
-                  asChild
+                
+                {/* Availability Badge */}
+                <motion.div 
+                  className="flex items-center gap-3 p-4 rounded-xl bg-primary/5 border border-green-500/20"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
                 >
-                  <Link href="/assets/Resume-Abhishumat.pdf" target="_blank">
+                  <div className="relative">
+                    <div className="w-3 h-3 bg-primary/10 rounded-full"></div>
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-black dark:text-gray-300">Currently working with some amazing people</p>
+                    <p className="text-xs text-muted-foreground">Hold on internships</p>
+                  </div>
+                </motion.div>
+                <Button className="rounded-full text-base px-8 py-6 bg-primary hover:bg-primary/90 dark:bg-gray-300 dark:hover:bg-gray-400 dark:text-black transition-colors" asChild>
+                  <Link href="/assets/Resume_raj.pdf" target="_blank">
                     View Resume
                   </Link>
                 </Button>
               </motion.div>
 
-              {/* Experience Timeline */}
               <motion.div variants={fadeIn} className="space-y-6">
                 <h2 className="text-2xl font-bold tracking-tight">Experience</h2>
                 <div className="space-y-4">
-                {[
-                {
-                  year: "June 2025",
-                  title: "Intern",
-                  company: "MPC Cloud Consulting Pvt. Ltd",
-                  link: "https://www.mpccloudconsulting.com",
-                  description: "Worked on Oracle Cloud Infrastructure development",
-                },
-                {
-                  year: "2024-2025",
-                  title: "Co-Secretary",
-                  company: "IET-VIT",
-                  description: "Led development of various websites",
-                },
-                {
-                  year: "2023-2024",
-                  title: "Projects Domain Member",
-                  company: "Apple Developers Group VIT",
-                  description: "Built responsive web applications",
-                },
-              ].map((experience, index) => (
-                <motion.div
-                  key={index}
-                  className="relative pl-8 pb-8 border-l border-primary/20 last:pb-0"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  <div className="absolute left-0 top-0 w-3 h-3 rounded-full bg-primary -translate-x-[7px]" />
-                  <div className="space-y-2">
-                    <span className="text-sm text-primary font-medium">{experience.year}</span>
-                    <h3 className="font-semibold">{experience.title}</h3>
-                    <p className="text-sm text-muted-foreground">
-                      {experience.link ? (
-                        <a
-                          href={experience.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="underline hover:text-primary"
-                        >
-                          {experience.company}
-                        </a>
-                      ) : (
-                        <span className="text-white">{experience.company}</span>
-                      )}
-                    </p>
-                    <p className="text-sm">{experience.description}</p>
-                  </div>
-                </motion.div>
-              ))}
-
+                  {[
+                    {
+                      year: "2025",
+                      title: "Software Engineer Intern",
+                      company: "Nurtureme.ai",
+                      link: "https://www.nurtureme.ai/",
+                      description: "Built Patient Pathway portal for ENT doctors from ground up",
+                    },
+                  ].map((experience, index) => (
+                    <motion.div
+                      key={index}
+                      className="relative pl-8 pb-8 border-l border-primary/20 last:pb-0"
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                    >
+                      <div className="absolute left-0 top-0 w-3 h-3 rounded-full bg-primary -translate-x-[7px]" />
+                      <div className="space-y-2">
+                        <span className="text-sm text-primary font-medium">{experience.year}</span>
+                        <h3 className="font-semibold">{experience.title}</h3>
+                        <p className="text-sm text-muted-foreground">
+                          {experience.link ? (
+                            <a href={experience.link} target="_blank" rel="noopener noreferrer" className="underline hover:text-primary">
+                              {experience.company}
+                            </a>
+                          ) : (
+                            <span className="text-white">{experience.company}</span>
+                          )}
+                        </p>
+                        <p className="text-sm">{experience.description}</p>
+                      </div>
+                    </motion.div>
+                  ))}
                 </div>
               </motion.div>
 
-              {/* Social Links */}
+              <motion.div variants={fadeIn} className="space-y-6">
+                <h2 className="text-2xl font-bold tracking-tight">Education</h2>
+                <div className="space-y-4">
+                  {[
+                    {
+                      year: "2024 - 2028",
+                      degree: "B.Tech in Mathematics and Computing",
+                      institution: "Indian Institute of Technology, Patna",
+                      description: "Relevant Coursework: Data Structures, Algorithms, Machine Learning, Database Systems",
+                    },
+                    {
+                      year: "2024",
+                      degree: "Senior Secondary (12th)",
+                      institution: "Bhaskar Academy, Indore",
+                      description: "Relevant Coursework: Physics, Chemistry, Mathematics",
+                    },
+                  ].map((education, index) => (
+                    <motion.div
+                      key={index}
+                      className="relative pl-8 pb-8 border-l border-primary/20 last:pb-0"
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                    >
+                      <div className="absolute left-0 top-0 w-3 h-3 rounded-full bg-primary -translate-x-[7px]" />
+                      <div className="space-y-2">
+                        <span className="text-sm text-primary font-medium">{education.year}</span>
+                        <h3 className="font-semibold">{education.degree}</h3>
+                        <p className="text-sm text-muted-foreground">{education.institution}</p>
+                        <p className="text-sm">{education.description}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+
+              <motion.div variants={fadeIn} className="space-y-6">
+                <h2 className="text-2xl font-bold tracking-tight">Accomplishments</h2>
+                <ul className="space-y-3 text-sm leading-relaxed">
+                  {[ 
+                    "Achieved top 0.3 percentile in JEE Mains 2024 (1.4M candidates) and top 3.2% in JEE Advanced 2024 (250K candidates).",
+                    "Completed the Google Upskilling Launchpad Program (2025), a competitive initiative focused on advancing technical and professional skills through hands-on projects and mentorship.",
+                    "Qualified for AIME 2024 (Ranked 32/1000+ nationally) and earned IOQM Merit Certificate (Top 1.2% of 250,000 candidates, 2022).",
+                    "Codeforces – Pupil (1328), and Placed 1,812/45,000+ in the IICPC Codefest Prelims (Feb 2025).",
+                    "Research Consultant, WorldQuant – Awarded Gold Certificate.",
+                    "Among only two first-year teams selected from IIT Patna to represent at SIH 2024.",
+                  ].map((accomplishment, index) => (
+                    <motion.li
+                      key={index}
+                      className="flex gap-3"
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                    >
+                      <span className="text-primary mt-1.5">•</span>
+                      <span className="text-muted-foreground">{accomplishment}</span>
+                    </motion.li>
+                  ))}
+                </ul>
+              </motion.div>
+
+              <motion.div variants={fadeIn} className="space-y-6">
+                <h2 className="text-2xl font-bold tracking-tight">Interests</h2>
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    { icon: "/assets/opensource.svg", label: "Open Source", color: "bg-primary/5 text-black dark:text-gray-300" },
+                    { icon: "/assets/problemsolving.svg", label: "Problem Solving", color: "bg-primary/5 text-black dark:text-gray-300" },
+                    { icon: "/assets/aiml.svg", label: "AI/ML", color: "bg-primary/5 text-black dark:text-gray-300" },
+                    { icon: "/assets/systemdesign.svg", label: "System Design", color: "bg-primary/5 text-black dark:text-gray-300" },
+                  ].map((interest, index) => (
+                    <motion.div
+                      key={index}
+                      className={`flex items-center gap-2 p-3 rounded-lg border ${interest.color} hover:scale-105 transition-transform`}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
+                    >
+                      <Image src={interest.icon} alt={interest.label} width={24} height={24} className="object-contain dark:invert" />
+                      <span className="text-xs font-medium">{interest.label}</span>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+
               <motion.div className="space-y-6" variants={fadeIn}>
                 <div className="flex gap-4">
                   {[
                     {
-                      href: "https://github.com/Abhishumat23",
+                      href: "https://github.com/Rajpragur",
                       icon: <Github className="w-5 h-5" />,
                       label: "GitHub",
                     },
                     {
-                      href: "https://www.linkedin.com/in/abhishumat-singh-beniwal-200620269/",
+                      href: "https://www.linkedin.com/in/rajpragur/",
                       icon: <Linkedin className="w-5 h-5" />,
                       label: "LinkedIn",
                     },
                     {
-                      href: "https://www.instagram.com/abhishumatt",
+                      href: "mailto:rajpragur@gmail.com",
+                      icon: <MailIcon className="w-5 h-5" />,
+                      label: "Email",
+                    },
+                    {
+                      href: "https://www.instagram.com/rajpragur",
                       icon: <InstagramIcon className="w-5 h-5" />,
                       label: "Instagram",
                     },
                   ].map((link, index) => (
-                    <Button
-                      key={index}
-                      variant="outline"
-                      size="icon"
-                      className="rounded-full hover:scale-110 transition-transform"
-                      asChild
-                    >
+                    <Button key={index} variant="outline" size="icon" className="rounded-full hover:scale-110 transition-transform" asChild>
                       <Link href={link.href} target="_blank" aria-label={link.label}>
                         {link.icon}
                       </Link>
                     </Button>
                   ))}
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={toggleTheme}
-                    className="rounded-full hover:scale-110 transition-transform ml-auto"
-                  >
+
+                  <Button variant="outline" size="icon" onClick={toggleTheme} className="rounded-full hover:scale-110 transition-transform ml-auto">
                     {theme === "light" ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
                   </Button>
                 </div>
               </motion.div>
             </motion.div>
 
-            {/* Right Content */}
             <motion.div className="space-y-12" initial="initial" animate="animate" variants={staggerContainer}>
-              {/* Projects Section */}
               <motion.section variants={fadeIn} id="projects">
                 <div className="flex justify-between items-center mb-8">
                   <h2 className="text-2xl font-bold tracking-tight">Featured Projects</h2>
@@ -289,9 +364,9 @@ export default function Portfolio() {
                         variant={selectedCategory === category ? "default" : "outline"}
                         size="sm"
                         onClick={() => setSelectedCategory(category)}
-                        className="capitalize"
+                        className="capitalize rounded-full"
                       >
-                        {category}
+                        {category === "all" ? "All" : category.charAt(0).toUpperCase() + category.slice(1)}
                       </Button>
                     ))}
                   </div>
@@ -299,64 +374,47 @@ export default function Portfolio() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {filteredProjects.map((project, i) => (
                     <motion.a
-                      key={i}
+                      key={project.title}
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={`Open ${project.title} in a new tab`}
                       className="group relative flex flex-col bg-card rounded-xl overflow-hidden border shadow-sm hover:shadow-lg transition-all duration-300"
                       whileHover={{ y: -5 }}
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: i * 0.1 }}
+                      transition={{ duration: 0.5, delay: i * 0.08 }}
                     >
                       <div className="relative aspect-video overflow-hidden">
-                        <Image
-                          src={project.image || "/placeholder.svg"}
-                          alt={project.title}
-                          fill
+                        <Image 
+                          src={project.image || "/placeholder.svg"} 
+                          alt={project.title} 
+                          fill 
                           className="object-cover transition-transform duration-300 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                       </div>
+
                       <div className="p-6 space-y-2">
                         <div className="flex items-center justify-between gap-2">
-                          <h3 className="text-lg font-semibold group-hover:text-primary transition-colors">
-                            {project.title}
-                          </h3>
+                          <h3 className="text-lg font-semibold group-hover:text-primary transition-colors">{project.title}</h3>
                           <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                         </div>
+
                         <p className="text-sm text-muted-foreground">{project.description}</p>
-                        <div className="flex items-center gap-4 pt-2">
-                          <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                            <Star className="w-4 h-4" />
-                            <span>{project.stats.stars}</span>
-                          </div>
-                          <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                            <Users className="w-4 h-4" />
-                            <span>{project.stats.users}</span>
-                          </div>
-                        </div>
                       </div>
                     </motion.a>
                   ))}
                 </div>
               </motion.section>
 
-              {/* Stack Section */}
+              {/* Stats Section */}
               <motion.section variants={fadeIn} className="rounded-xl p-8 bg-primary/5 border">
                 <h2 className="text-2xl font-bold tracking-tight mb-8">Tech Stack</h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 ">
-                  {[
-                    { src: "/assets/js-squared.svg", alt: "JavaScript", level: 90 },
-                    { src: "/assets/typescript.svg", alt: "TypeScript", level: 85 },
-                    { src: "/assets/swift.svg", alt: "Swift", level: 75 },
-                    { src: "/assets/python.svg", alt: "Python", level: 80 },
-                    { src: "/assets/Tailwind CSS.svg", alt: "Tailwind CSS", level: 95 },
-                    { src: "/assets/Flutter.svg", alt: "Flutter", level: 70 },
-                    { src: "/assets/Git.svg", alt: "Git", level: 88 },
-                  ].map((tech, i) => (
+                  {techs.map((tech, i) => (
                     <motion.div
-                      key={i}
+                      key={tech.alt}
                       className="relative p-6 rounded-xl bg-background shadow-sm border hover:shadow-md transition-shadow"
                       whileHover={{ scale: 1.05 }}
                       initial={{ opacity: 0, y: 20 }}
@@ -364,21 +422,21 @@ export default function Portfolio() {
                       transition={{ duration: 0.5, delay: i * 0.1 }}
                     >
                       <div className="flex flex-col items-center gap-4">
-                        <Image
-                          src={tech.src || "/placeholder.svg"}
-                          alt={tech.alt}
-                          width={40}
-                          height={40}
+                        <Image 
+                          src={tech.src || "/placeholder.svg"} 
+                          alt={tech.alt} 
+                          width={40} 
+                          height={40} 
                           className="object-contain dark:invert"
                         />
                         <div className="w-full space-y-2">
                           <div className="text-sm font-medium text-center">{tech.alt}</div>
                           <div className="h-2 w-full bg-primary/20 rounded-full overflow-hidden">
-                            <motion.div
-                              className="h-full bg-primary"
-                              initial={{ width: 0 }}
-                              whileInView={{ width: `${tech.level}%` }}
-                              transition={{ duration: 1, delay: i * 0.1 }}
+                            <motion.div 
+                              className="h-full bg-primary" 
+                              initial={{ width: 0 }} 
+                              whileInView={{ width: `${tech.level}%` }} 
+                              transition={{ duration: 1, delay: i * 0.1 }} 
                             />
                           </div>
                         </div>
@@ -388,35 +446,108 @@ export default function Portfolio() {
                 </div>
               </motion.section>
 
+              {/* Currently Learning Section */}
+              <motion.section variants={fadeIn} className="rounded-xl p-8 bg-gradient-to-br from-primary/5 to-transparent border">
+                <div className="flex items-center gap-3 mb-6">
+                  <Lightbulb className="w-6 h-6 text-primary" />
+                  <h2 className="text-2xl font-bold tracking-tight">Current Focus</h2>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {[
+                    { tech: "Pytorch for Deep Learning", description: "Building production-ready AI applications", icon: "/assets/pytorch.svg" },
+                    { tech: "System Design", description: "Scalable architecture patterns", icon: "/assets/systemdesign.svg" },
+                    { tech: "Data Structures and Algorithms", description: "Advanced algorithms & data structures", icon: "/assets/leetcode.svg" },
+                    { tech: "Open Source", description: "Contributing to open source projects", icon: "/assets/opensource.svg" },
+                  ].map((item, index) => (
+                    <motion.div
+                      key={index}
+                      className="flex gap-4 p-4 rounded-lg bg-background/50 backdrop-blur-sm border border-primary/10 hover:border-primary/30 transition-colors"
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      whileHover={{ scale: 1.02 }}
+                    >
+                      <Image src={item.icon} alt={item.tech} width={24} height={24} className="object-contain dark:invert" />
+                      <div className="space-y-1">
+                        <h3 className="font-semibold">{item.tech}</h3>
+                        <p className="text-sm text-muted-foreground">{item.description}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.section>
+
               {/* Contact Section */}
               <motion.section variants={fadeIn} className="rounded-xl p-8 bg-primary/5 border">
-  <h2 className="text-2xl font-bold tracking-tight mb-6">Get in Touch</h2>
-  <div className="grid md:grid-cols-2 gap-8">
-    <div className="space-y-4">
-      <p className="text-lg">
-        <span className="text-muted-foreground">Email: </span>
-        <a href="mailto:abhishumatbeniwal@gmail.com" className="text-primary hover:underline">
-          abhishumatbeniwal@gmail.com
-        </a>
-      </p>
-      <p className="text-muted-foreground">
-        Feel free to reach out for collaborations or just to say hi!
-      </p>
-    </div>
-
-   
-  </div>
-</motion.section>
+                <h2 className="text-2xl font-bold tracking-tight mb-6">Get in Touch</h2>
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <MailIcon className="w-5 h-5 text-primary" />
+                        <span className="font-medium">Email</span>
+                      </div>
+                      <a href="mailto:rajpragur@gmail.com" className="text-primary hover:underline block">
+                        rajpragur@gmail.com
+                      </a>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <Github className="w-5 h-5 text-primary" />
+                        <span className="font-medium">GitHub</span>
+                      </div>
+                      <a href="https://github.com/Rajpragur" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline block">
+                        @Rajpragur
+                      </a>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <Linkedin className="w-5 h-5 text-primary" />
+                        <span className="font-medium">LinkedIn</span>
+                      </div>
+                      <a href="https://www.linkedin.com/in/rajpragur/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline block">
+                        linkedin.com/in/rajpragur
+                      </a>
+                    </div>
+                    <p className="text-muted-foreground pt-4">
+                      Feel free to reach out for collaborations, opportunities, or just to say hi! 👋
+                    </p>
+                  </div>
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <label htmlFor="name" className="text-sm font-medium">Name</label>
+                      <Input id="name" placeholder="Your name" className="bg-background" />
+                    </div>
+                    <div className="space-y-2">
+                      <label htmlFor="email" className="text-sm font-medium">Email</label>
+                      <Input id="email" type="email" placeholder="your.email@example.com" className="bg-background" />
+                    </div>
+                    <div className="space-y-2">
+                      <label htmlFor="message" className="text-sm font-medium">Message</label>
+                      <Textarea id="message" placeholder="Your message..." rows={4} className="bg-background resize-none" />
+                    </div>
+                    <Button className="w-full rounded-full" onClick={() => {
+                      const name = (document.getElementById('name') as HTMLInputElement)?.value;
+                      const email = (document.getElementById('email') as HTMLInputElement)?.value;
+                      const message = (document.getElementById('message') as HTMLTextAreaElement)?.value;
+                      const subject = `Portfolio Contact from ${name}`;
+                      const body = `Hi Raj, I am ${name}%0D%0D%0A%0D%0AI saw your portfolio and if you want to reply to me, you can reply me on ${email}%0D%0D%0A%0D%0AMy Message:%0D%0A${message}`;
+                      window.location.href = `mailto:rajpragur@gmail.com?subject=${subject}&body=${body}`;
+                    }}>
+                      Send Message
+                    </Button>
+                  </div>
+                </div>
+              </motion.section>
             </motion.div>
           </div>
 
           {/* Footer */}
           <motion.footer variants={fadeIn} className="mt-16 pt-8 border-t text-center text-sm text-muted-foreground">
-            <p>© {new Date().getFullYear()} Abhishumat Singh Beniwal. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} Raj Pratap Singh Gurjar. All rights reserved.</p>
           </motion.footer>
         </div>
       </motion.div>
     </>
   )
 }
-

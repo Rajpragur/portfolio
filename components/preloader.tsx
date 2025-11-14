@@ -16,7 +16,7 @@ const PreLoader = ({ onLoadingComplete }: { onLoadingComplete: () => void }) => 
           setTimeout(() => {
             setIsLoading(false)
             onLoadingComplete()
-          }, 500)
+          }, 100)
           return 100
         }
         return newProgress
