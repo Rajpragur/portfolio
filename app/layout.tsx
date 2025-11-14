@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Raj Pratap Singh Gurjar - Full Stack Developer',
-    description: 'Full Stack Developer from IIT Patna',
+    description: 'Developer + Student from IIT Patna',
     type: 'website',
   },
 }
