@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { InstagramIcon, Github, Linkedin, MailIcon, Sun, Moon, ExternalLink, Lightbulb } from "lucide-react"
+import { InstagramIcon, Github, Linkedin, MailIcon, Sun, Moon, ExternalLink, Lightbulb, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -40,6 +40,7 @@ export default function Portfolio() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [selectedCategory, setSelectedCategory] = useState("all")
   const [isLoading, setIsLoading] = useState(true)
+  const [currentProjectIndex, setCurrentProjectIndex] = useState(0)
   const { scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -84,6 +85,15 @@ export default function Portfolio() {
       stats: { stars: 420, users: "1.2k" },
     },
     {
+      title: "ResumeAgent",
+      link: "https://resumeagentanalyze.netlify.app/",
+      image: "/assets/project4.png",
+      category: "AI",
+      description:
+        "Multi-agent AI platform designed to analyze and enhance LaTeX resumes. AI-driven content suggestions to streamline the job application process.",
+      stats: { stars: 420, users: "1.2k" },
+    },
+    {
       title: "CharchaGram",
       link: "https://charcha-manch.vercel.app/",
       image: "/assets/project2.png",
@@ -101,12 +111,40 @@ export default function Portfolio() {
         "AI-powered travel planner that generates optimized itineraries using LLMs + live place data.",
       stats: { stars: 154, users: "950" },
     },
+    {
+      title: "Google Calendar Clone",
+      link: "https://gcalendar-clone.vercel.app/",
+      image: "/assets/project5.png",
+      category: "Web",
+      description:
+        "Google Calendar-inspired calendar application with React frontend and Node.js + MongoDB backend. Features multiple views and event management.",
+      stats: { stars: 0, users: "0" },
+    },
   ]
 
   const categories = ["all", ...Array.from(new Set(projects.map((p) => p.category)))]
 
   const filteredProjects =
     selectedCategory === "all" ? projects : projects.filter((project) => project.category === selectedCategory)
+
+  // Reset index when category changes
+  useEffect(() => {
+    setCurrentProjectIndex(0)
+  }, [selectedCategory])
+
+  // Show 3 projects starting from currentProjectIndex
+  const displayedProjects = filteredProjects.slice(currentProjectIndex, currentProjectIndex + 3)
+
+  const navigateProjects = (direction: "left" | "right") => {
+    if (direction === "right") {
+      setCurrentProjectIndex((prev) => Math.min(prev + 1, filteredProjects.length - 3))
+    } else {
+      setCurrentProjectIndex((prev) => Math.max(prev - 1, 0))
+    }
+  }
+
+  const canGoLeft = currentProjectIndex > 0
+  const canGoRight = currentProjectIndex + 3 < filteredProjects.length
 
   const techs = [
     { src: "/assets/python.svg", alt: "Python", level: 80 },
@@ -371,40 +409,64 @@ export default function Portfolio() {
                     ))}
                   </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {filteredProjects.map((project, i) => (
-                    <motion.a
-                      key={project.title}
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Open ${project.title} in a new tab`}
-                      className="group relative flex flex-col bg-card rounded-xl overflow-hidden border shadow-sm hover:shadow-lg transition-all duration-300"
-                      whileHover={{ y: -5 }}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: i * 0.08 }}
+                <div className="relative">
+                  {canGoLeft && (
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => navigateProjects("left")}
+                      className="absolute -left-12 top-1/2 -translate-y-1/2 z-10 rounded-full bg-background/80 backdrop-blur-sm hover:bg-background shadow-lg"
+                      aria-label="Previous projects"
                     >
-                      <div className="relative aspect-video overflow-hidden">
-                        <Image 
-                          src={project.image || "/placeholder.svg"} 
-                          alt={project.title} 
-                          fill 
-                          className="object-cover transition-transform duration-300 group-hover:scale-105"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                      </div>
-
-                      <div className="p-6 space-y-2">
-                        <div className="flex items-center justify-between gap-2">
-                          <h3 className="text-lg font-semibold group-hover:text-primary transition-colors">{project.title}</h3>
-                          <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <ChevronLeft className="w-5 h-5" />
+                    </Button>
+                  )}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {displayedProjects.map((project, i) => (
+                      <motion.a
+                        key={project.title}
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Open ${project.title} in a new tab`}
+                        className="group relative flex flex-col bg-card rounded-xl overflow-hidden border shadow-sm hover:shadow-lg transition-all duration-300"
+                        whileHover={{ y: -5 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: i * 0.08 }}
+                      >
+                        <div className="relative aspect-video overflow-hidden">
+                          <Image 
+                            src={project.image || "/placeholder.svg"} 
+                            alt={project.title} 
+                            fill 
+                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                         </div>
 
-                        <p className="text-sm text-muted-foreground">{project.description}</p>
-                      </div>
-                    </motion.a>
-                  ))}
+                        <div className="p-6 space-y-2">
+                          <div className="flex items-center justify-between gap-2">
+                            <h3 className="text-lg font-semibold group-hover:text-primary transition-colors">{project.title}</h3>
+                            <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </div>
+
+                          <p className="text-sm text-muted-foreground">{project.description}</p>
+                        </div>
+                      </motion.a>
+                    ))}
+                  </div>
+                  {canGoRight && (
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => navigateProjects("right")}
+                      className="absolute -right-12 top-1/2 -translate-y-1/2 z-10 rounded-full bg-background/80 backdrop-blur-sm hover:bg-background shadow-lg"
+                      aria-label="Next projects"
+                    >
+                      <ChevronRight className="w-5 h-5" />
+                    </Button>
+                  )}
                 </div>
               </motion.section>
 
