@@ -224,7 +224,7 @@ export default function Portfolio() {
                   </div>
                 </motion.div>
                 <Button className="rounded-full text-base px-8 py-6 bg-primary hover:bg-primary/90 dark:bg-gray-300 dark:hover:bg-gray-400 dark:text-black transition-colors" asChild>
-                  <Link href="/assets/Resume_raj.pdf" target="_blank">
+                  <Link href="/assets/raj_resume_ml.pdf" target="_blank">
                     View Resume
                   </Link>
                 </Button>
