@@ -85,6 +85,15 @@ export default function Portfolio() {
       stats: { stars: 420, users: "1.2k" },
     },
     {
+      title: "Codeboss",
+      link: "https://codeboss.codes/",
+      image: "/assets/project_codeboss.png",
+      category: "AI",
+      description:
+        "AI powered DSA/Interview trainer for Leetcode problems.",
+      stats: { stars: 420, users: "1.2k" },
+    },
+    {
       title: "ResumeAgent",
       link: "https://resumeagentanalyze.netlify.app/",
       image: "/assets/project4.png",
@@ -211,16 +220,16 @@ export default function Portfolio() {
                 
                 {/* Availability Badge */}
                 <motion.div 
-                  className="flex items-center gap-3 p-4 rounded-xl bg-primary/5 border border-green-500/20"
+                  className="flex items-center gap-3 p-4 rounded-xl bg-green-500/10 border border-green-500/20"
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.2 }}
                 >
                   <div className="relative">
-                    <div className="w-3 h-3 bg-primary/10 rounded-full"></div>
+                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-black dark:text-gray-300">Currently working with some amazing people</p>
-                    <p className="text-xs text-muted-foreground">Hold on internships</p>
+                    <p className="text-xs text-muted-foreground">Open for internships from March 2026</p>
                   </div>
                 </motion.div>
                 <Button className="rounded-full text-base px-8 py-6 bg-primary hover:bg-primary/90 dark:bg-gray-300 dark:hover:bg-gray-400 dark:text-black transition-colors" asChild>
@@ -234,6 +243,13 @@ export default function Portfolio() {
                 <h2 className="text-2xl font-bold tracking-tight">Experience</h2>
                 <div className="space-y-4">
                   {[
+                    {
+                      year: "2025 - 2026",
+                      title: "Research Operations - Coding Expert (Contract)",
+                      company: "Uber Technologies (AI Division)",
+                      link: "http://uber.com/",
+                      description: "Iterating on making models better for a big tech company.",
+                    },
                     {
                       year: "2025",
                       title: "Software Engineer Intern",
