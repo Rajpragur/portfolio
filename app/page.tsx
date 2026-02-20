@@ -85,9 +85,9 @@ export default function Portfolio() {
       stats: { stars: 420, users: "1.2k" },
     },
     {
-      title: "Codeboss",
-      link: "https://codeboss.codes/",
-      image: "/assets/project_codeboss.png",
+      title: "Algority",
+      link: "https://www.algority.live/",
+      image: "/assets/project_algority.png",
       category: "AI",
       description:
         "AI powered DSA/Interview trainer for Leetcode problems.",
@@ -233,7 +233,7 @@ export default function Portfolio() {
                   </div>
                 </motion.div>
                 <Button className="rounded-full text-base px-8 py-6 bg-primary hover:bg-primary/90 dark:bg-gray-300 dark:hover:bg-gray-400 dark:text-black transition-colors" asChild>
-                  <Link href="/assets/raj_resume_ml.pdf" target="_blank">
+                  <Link href="/assets/raj_resume.pdf" target="_blank">
                     View Resume
                   </Link>
                 </Button>
@@ -246,7 +246,7 @@ export default function Portfolio() {
                     {
                       year: "2025 - 2026",
                       title: "Research Operations - Coding Expert (Contract)",
-                      company: "Uber Technologies (AI Division)",
+                      company: "Uber AI",
                       link: "http://uber.com/",
                       description: "Iterating on making models better for a big tech company.",
                     },
